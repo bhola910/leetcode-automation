@@ -45,9 +45,7 @@ class ChangeDetector:
             if not line:
                 continue
 
-            changes.append(
-                self._parse_change(line)
-            )
+            changes.append(self._parse_change(line))
 
         return changes
 
@@ -57,7 +55,5 @@ class ChangeDetector:
         return [
             change
             for change in self.get_changes()
-            if change.path.startswith(
-                self.SOLUTIONS_DIRECTORY
-            )
+            if change.path.startswith(self.SOLUTIONS_DIRECTORY)
         ]

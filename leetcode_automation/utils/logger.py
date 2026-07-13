@@ -4,7 +4,7 @@ logger.py
 Provides logging functionality for the application.
 """
 
-from email.mime import message
+
 import logging
 from pathlib import Path
 
@@ -49,7 +49,7 @@ class Logger:
         """Log an informational message."""
 
         self._logger.info(message)
-    
+
     def warning(self, message: str) -> None:
         """Log a warning message."""
 

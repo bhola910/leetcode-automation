@@ -41,25 +41,19 @@ class SolutionEventHandler(FileSystemEventHandler):
         if event.is_directory:
             return False
 
-        return event.src_path.endswith(
-            self._extensions
-        )
+        return event.src_path.endswith(self._extensions)
 
     def _process_file(self, path: str) -> None:
         """Process the detected solution."""
 
-        self._logger.info(
-            f"Processing solution: {path}"
-        )
+        self._logger.info(f"Processing solution: {path}")
 
         try:
             self._callback(path)
 
         except Exception as error:
 
-            self._logger.error(
-                f"Callback failed: {error}"
-            )
+            self._logger.error(f"Callback failed: {error}")
 
     def _schedule_processing(
         self,
@@ -84,13 +78,9 @@ class SolutionEventHandler(FileSystemEventHandler):
         if not self._valid_solution(event):
             return
 
-        self._logger.info(
-            f"Detected: {event.src_path}"
-        )
+        self._logger.info(f"Detected: {event.src_path}")
 
-        self._schedule_processing(
-            event.src_path
-        )
+        self._schedule_processing(event.src_path)
 
     def on_modified(self, event) -> None:
         """Called when a solution is modified."""
@@ -98,13 +88,9 @@ class SolutionEventHandler(FileSystemEventHandler):
         if not self._valid_solution(event):
             return
 
-        self._logger.info(
-            f"Modified: {event.src_path}"
-        )
+        self._logger.info(f"Modified: {event.src_path}")
 
-        self._schedule_processing(
-            event.src_path
-        )
+        self._schedule_processing(event.src_path)
 
 
 class FileWatcher:
@@ -117,17 +103,11 @@ class FileWatcher:
         self._callback = callback
         self._config = ConfigManager()
 
-        self._watch_directory = self._config.get(
-            "watcher.directory"
-        )
+        self._watch_directory = self._config.get("watcher.directory")
 
-        self._extensions = self._config.get(
-            "watcher.extensions"
-        )
+        self._extensions = self._config.get("watcher.extensions")
 
-        self._debounce = self._config.get(
-            "watcher.debounce_seconds"
-        )
+        self._debounce = self._config.get("watcher.debounce_seconds")
 
         self._observer = Observer()
 
@@ -148,9 +128,7 @@ class FileWatcher:
 
         self._observer.start()
 
-        self._logger.info(
-            f"Watching '{self._watch_directory}'..."
-        )
+        self._logger.info(f"Watching '{self._watch_directory}'...")
 
         try:
             while True:
@@ -163,9 +141,7 @@ class FileWatcher:
     def stop(self) -> None:
         """Stop watching the solutions directory."""
 
-        self._logger.info(
-            "Stopping file watcher..."
-        )
+        self._logger.info("Stopping file watcher...")
 
         self._observer.stop()
         self._observer.join()

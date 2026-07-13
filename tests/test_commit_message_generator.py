@@ -23,9 +23,7 @@ def main():
     ]
 
     for change in changes:
-        print(
-            generator.generate(change)
-        )
+        print(generator.generate(change))
 
 
 if __name__ == "__main__":

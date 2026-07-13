@@ -6,9 +6,7 @@ from leetcode_automation.services.solution_parser import (
 def main():
     parser = SolutionParser()
 
-    solution = parser.parse(
-        "solutions/0001_two_sum.cpp"
-    )
+    solution = parser.parse("solutions/0001_two_sum.cpp")
 
     print(solution)
 

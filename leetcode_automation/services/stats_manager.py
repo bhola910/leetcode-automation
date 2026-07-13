@@ -21,13 +21,9 @@ class StatsManager:
 
         self._logger = Logger()
 
-        self._stats_file = Path(
-            "leetcode_automation/data/stats.json"
-        )
+        self._stats_file = Path("leetcode_automation/data/stats.json")
 
-        self._solutions_directory = Path(
-            "solutions"
-        )
+        self._solutions_directory = Path("solutions")
 
         self._parser = SolutionParser()
 
@@ -86,9 +82,7 @@ class StatsManager:
 
         stats["total_solutions"] += 1
 
-        language = self._language_key(
-            solution.language
-        )
+        language = self._language_key(solution.language)
 
         if language in stats:
             stats[language] += 1
@@ -100,24 +94,18 @@ class StatsManager:
 
         latest_solution = None
 
-        for file in sorted(
-            self._solutions_directory.iterdir()
-        ):
+        for file in sorted(self._solutions_directory.iterdir()):
 
             if not file.is_file():
                 continue
 
             try:
 
-                solution = self._parser.parse(
-                    str(file)
-                )
+                solution = self._parser.parse(str(file))
 
             except ValueError as error:
 
-                self._logger.warning(
-                    str(error)
-                )
+                self._logger.warning(str(error))
 
                 continue
 
@@ -130,14 +118,10 @@ class StatsManager:
 
         if latest_solution:
 
-            stats["latest_problem"] = (
-                latest_solution.title
-            )
+            stats["latest_problem"] = latest_solution.title
 
         self.save(stats)
 
-        self._logger.info(
-            "Statistics updated successfully."
-        )
+        self._logger.info("Statistics updated successfully.")
 
         return stats

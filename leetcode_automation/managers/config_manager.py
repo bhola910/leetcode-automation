@@ -41,9 +41,7 @@ class ConfigManager:
             ) from error
 
         except json.JSONDecodeError as error:
-            raise ValueError(
-                f"Invalid JSON in configuration file: {error}"
-            ) from error
+            raise ValueError(f"Invalid JSON in configuration file: {error}") from error
 
     def validate(self) -> None:
         """Validate required configuration sections."""
@@ -57,9 +55,7 @@ class ConfigManager:
 
         for section in required_sections:
             if section not in self._config:
-                raise KeyError(
-                    f"Missing required configuration section: '{section}'"
-                )
+                raise KeyError(f"Missing required configuration section: '{section}'")
 
     def get(self, key: str) -> Any:
         """

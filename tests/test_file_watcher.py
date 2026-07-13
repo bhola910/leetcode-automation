@@ -5,9 +5,7 @@ from leetcode_automation.services.file_watcher import FileWatcher
 def main():
     controller = AutomationController()
 
-    watcher = FileWatcher(
-        controller.process_solution
-    )
+    watcher = FileWatcher(controller.process_solution)
 
     watcher.start()
 

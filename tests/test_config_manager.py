@@ -4,7 +4,6 @@ import pytest
 
 from leetcode_automation.managers.config_manager import ConfigManager
 
-
 DATA_DIR = Path("tests/data")
 
 

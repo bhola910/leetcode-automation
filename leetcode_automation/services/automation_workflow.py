@@ -48,27 +48,19 @@ class AutomationWorkflow:
     def _log_changes(self) -> bool:
         """Log detected Git changes."""
 
-        changes = (
-            self._change_detector.get_solution_changes()
-        )
+        changes = self._change_detector.get_solution_changes()
 
         if not changes:
 
-            self._logger.warning(
-                "No solution changes detected."
-            )
+            self._logger.warning("No solution changes detected.")
 
             return False
 
-        self._logger.info(
-            f"Detected {len(changes)} Git change(s):"
-        )
+        self._logger.info(f"Detected {len(changes)} Git change(s):")
 
         for change in changes:
 
-            self._logger.info(
-                f"{change.status} -> {change.path}"
-            )
+            self._logger.info(f"{change.status} -> {change.path}")
 
         return True
 
@@ -80,49 +72,33 @@ class AutomationWorkflow:
 
         self._readme.update()
 
-        self._logger.info(
-            "README updated successfully."
-        )
+        self._logger.info("README updated successfully.")
 
         self._git.add()
 
-        self._logger.info(
-            "Files staged successfully."
-        )
+        self._logger.info("Files staged successfully.")
 
         self._git.commit(commit_message)
 
-        self._logger.info(
-            "Commit created successfully."
-        )
+        self._logger.info("Commit created successfully.")
 
     def run(self, path: str) -> None:
         """Run the automation workflow."""
 
-        self._logger.info(
-            f"Starting automation for: {path}"
-        )
+        self._logger.info(f"Starting automation for: {path}")
 
         solution = self._parse_solution(path)
 
         if solution is None:
             return
 
-        commit_message = (
-            self._commit_generator.generate(
-                solution
-            )
-        )
+        commit_message = self._commit_generator.generate(solution)
 
-        self._logger.info(
-            f"Commit message: {commit_message}"
-        )
+        self._logger.info(f"Commit message: {commit_message}")
 
         if self._git.repository_clean():
 
-            self._logger.info(
-                "Repository is already clean."
-            )
+            self._logger.info("Repository is already clean.")
 
             return
 
@@ -131,12 +107,8 @@ class AutomationWorkflow:
 
         try:
 
-            self._update_repository(
-                commit_message
-            )
+            self._update_repository(commit_message)
 
         except Exception as error:
 
-            self._logger.error(
-                f"Automation failed: {error}"
-            )
+            self._logger.error(f"Automation failed: {error}")

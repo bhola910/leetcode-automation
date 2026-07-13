@@ -39,30 +39,21 @@ class GitManager:
 
         self._logger.info("Running git status...")
 
-        return self._run_git_command(
-            ["git", "status"]
-        )
-    
+        return self._run_git_command(["git", "status"])
 
     def status_porcelain(self) -> str:
         """Return Git status in porcelain format."""
 
-        self._logger.info(
-            "Running git status --porcelain..."
-        )
+        self._logger.info("Running git status --porcelain...")
 
-        return self._run_git_command(
-            ["git", "status", "--porcelain"]
-        )
+        return self._run_git_command(["git", "status", "--porcelain"])
 
     def add(self, path: str = ".") -> None:
         """Stage files or directories for commit."""
 
         self._logger.info(f"Running git add '{path}'...")
 
-        self._run_git_command(
-            ["git", "add", path]
-        )
+        self._run_git_command(["git", "add", path])
 
     def commit(self, message: str) -> None:
         """Create a Git commit."""
@@ -72,9 +63,7 @@ class GitManager:
 
         self._logger.info(f"Running git commit: '{message}'")
 
-        self._run_git_command(
-            ["git", "commit", "-m", message]
-        )
+        self._run_git_command(["git", "commit", "-m", message])
 
     def push(
         self,
@@ -83,14 +72,9 @@ class GitManager:
     ) -> str:
         """Push commits to the remote repository."""
 
-        self._logger.info(
-            f"Running git push {remote} {branch}..."
-        )
+        self._logger.info(f"Running git push {remote} {branch}...")
 
-        return self._run_git_command(
-            ["git", "push", remote, branch]
-        )
-    
+        return self._run_git_command(["git", "push", remote, branch])
 
     def pull(
         self,
@@ -99,63 +83,48 @@ class GitManager:
     ) -> str:
         """Pull changes from the remote repository."""
 
-        self._logger.info(
-            f"Running git pull {remote} {branch}..."
-        )
+        self._logger.info(f"Running git pull {remote} {branch}...")
 
-        return self._run_git_command(
-            ["git", "pull", remote, branch]
-        )
-    
+        return self._run_git_command(["git", "pull", remote, branch])
 
     def current_branch(self) -> str:
         """Return the current Git branch."""
 
-        self._logger.info(
-            "Getting current Git branch..."
-        )
+        self._logger.info("Getting current Git branch...")
 
-        return self._run_git_command(
-            ["git", "branch", "--show-current"]
-        ).strip()
-    
+        return self._run_git_command(["git", "branch", "--show-current"]).strip()
+
     def repository_clean(self) -> bool:
         """Return True if the repository has no changes."""
 
         return not self.status_porcelain().strip()
-    
+
     def repository_exists(self) -> bool:
         """Return True if the current directory is a Git repository."""
 
         try:
 
-            self._run_git_command(
-                ["git", "rev-parse", "--git-dir"]
-            )
+            self._run_git_command(["git", "rev-parse", "--git-dir"])
 
             return True
 
         except Exception:
 
             return False
-        
+
     def has_remote(self) -> bool:
         """Return True if the repository has a remote."""
 
-        output = self._run_git_command(
-            ["git", "remote"]
-        )
+        output = self._run_git_command(["git", "remote"])
 
         return bool(output.strip())
-    
+
     def branch_exists(
         self,
         branch: str,
     ) -> bool:
         """Return True if the branch exists."""
 
-        output = self._run_git_command(
-            ["git", "branch", "--list", branch]
-        )
+        output = self._run_git_command(["git", "branch", "--list", branch])
 
         return bool(output.strip())

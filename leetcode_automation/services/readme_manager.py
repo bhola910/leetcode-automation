@@ -60,12 +60,8 @@ class ReadmeManager:
 
         stats = self._stats.generate()
 
-        content = self._build_content(
-            stats
-        )
+        content = self._build_content(stats)
 
         self._write(content)
 
-        self._logger.info(
-            "README updated successfully."
-        )
+        self._logger.info("README updated successfully.")

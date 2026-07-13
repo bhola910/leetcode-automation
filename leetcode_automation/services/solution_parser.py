@@ -51,8 +51,7 @@ class SolutionParser:
         if len(parts) != 2:
 
             raise ValueError(
-                "Invalid filename. Expected format: "
-                "'0001_two_sum.cpp'."
+                "Invalid filename. Expected format: " "'0001_two_sum.cpp'."
             )
 
         try:
@@ -61,25 +60,15 @@ class SolutionParser:
 
         except ValueError as error:
 
-            raise ValueError(
-                "Problem number must be numeric."
-            ) from error
+            raise ValueError("Problem number must be numeric.") from error
 
-        title = self._format_title(
-            parts[1]
-        )
+        title = self._format_title(parts[1])
 
-        language = (
-            self.SUPPORTED_LANGUAGES.get(
-                extension
-            )
-        )
+        language = self.SUPPORTED_LANGUAGES.get(extension)
 
         if language is None:
 
-            raise ValueError(
-                f"Unsupported file extension: {extension}"
-            )
+            raise ValueError(f"Unsupported file extension: {extension}")
 
         return Solution(
             number=number,

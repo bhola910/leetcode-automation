@@ -23,8 +23,4 @@ class CommitMessageGenerator:
         if language == "c++":
             language = "cpp"
 
-        return (
-            f"feat({language}): "
-            f"solve {solution.title} "
-            f"(#{solution.number})"
-        )
+        return f"feat({language}): " f"solve {solution.title} " f"(#{solution.number})"
