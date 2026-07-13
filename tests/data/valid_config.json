@@ -1,0 +1,14 @@
+{
+  "project": {
+    "name": "LeetCode Automation"
+  },
+  "repository": {
+    "path": "repo"
+  },
+  "watcher": {
+    "enabled": true
+  },
+  "logging": {
+    "level": "INFO"
+  }
+}
