@@ -153,34 +153,13 @@ pytest tests/test_git_manager.py
 
 ## Project Architecture
 
-```
-                 +-------------------+
-                 |   File Watcher    |
-                 +---------+---------+
-                           |
-                           v
-                 +-------------------+
-                 |  Solution Parser  |
-                 +---------+---------+
-                           |
-                           v
-                 +-------------------+
-                 | Statistics Manager|
-                 +---------+---------+
-                           |
-                           v
-                 +-------------------+
-                 |  README Manager   |
-                 +---------+---------+
-                           |
-                           v
-                 +-------------------+
-                 |    Git Manager    |
-                 +---------+---------+
-                           |
-                           v
-                      GitHub Repository
-```
+## Project Architecture
+
+The overall architecture is documented in:
+
+> **docs/architecture.md**
+
+This document explains the project components and how they interact.
 
 ---
 
