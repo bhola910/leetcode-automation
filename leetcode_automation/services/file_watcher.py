@@ -1,0 +1,147 @@
+"""
+file_watcher.py
+
+Monitors the solutions directory for file changes.
+"""
+
+import threading
+import time
+
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
+from leetcode_automation.managers.config_manager import (
+    ConfigManager,
+)
+from leetcode_automation.utils.logger import Logger
+
+
+class SolutionEventHandler(FileSystemEventHandler):
+    """Handles solution file system events."""
+
+    def __init__(
+        self,
+        extensions: list[str],
+        debounce_seconds: int,
+        callback,
+    ) -> None:
+        """Initialize the event handler."""
+
+        super().__init__()
+
+        self._logger = Logger()
+        self._extensions = tuple(extensions)
+        self._debounce = debounce_seconds
+        self._callback = callback
+        self._timer: threading.Timer | None = None
+
+    def _valid_solution(self, event) -> bool:
+        """Return True if the event is a valid solution file."""
+
+        if event.is_directory:
+            return False
+
+        return event.src_path.endswith(self._extensions)
+
+    def _process_file(self, path: str) -> None:
+        """Process the detected solution."""
+
+        self._logger.info(f"Processing solution: {path}")
+
+        try:
+            self._callback(path)
+
+        except Exception as error:
+
+            self._logger.error(f"Callback failed: {error}")
+
+    def _schedule_processing(
+        self,
+        path: str,
+    ) -> None:
+        """Schedule solution processing."""
+
+        if self._timer is not None:
+            self._timer.cancel()
+
+        self._timer = threading.Timer(
+            self._debounce,
+            self._process_file,
+            args=[path],
+        )
+
+        self._timer.start()
+
+    def on_created(self, event) -> None:
+        """Called when a new solution is created."""
+
+        if not self._valid_solution(event):
+            return
+
+        self._logger.info(f"Detected: {event.src_path}")
+
+        self._schedule_processing(event.src_path)
+
+    def on_modified(self, event) -> None:
+        """Called when a solution is modified."""
+
+        if not self._valid_solution(event):
+            return
+
+        self._logger.info(f"Modified: {event.src_path}")
+
+        self._schedule_processing(event.src_path)
+
+
+class FileWatcher:
+    """Watches the solutions directory."""
+
+    def __init__(self, callback) -> None:
+        """Initialize the file watcher."""
+
+        self._logger = Logger()
+        self._callback = callback
+        self._config = ConfigManager()
+
+        self._watch_directory = self._config.get("watcher.directory")
+
+        self._extensions = self._config.get("watcher.extensions")
+
+        self._debounce = self._config.get("watcher.debounce_seconds")
+
+        self._observer = Observer()
+
+    def start(self) -> None:
+        """Start watching the solutions directory."""
+
+        event_handler = SolutionEventHandler(
+            self._extensions,
+            self._debounce,
+            self._callback,
+        )
+
+        self._observer.schedule(
+            event_handler,
+            self._watch_directory,
+            recursive=True,
+        )
+
+        self._observer.start()
+
+        self._logger.info(f"Watching '{self._watch_directory}'...")
+
+        try:
+            while True:
+                time.sleep(1)
+
+        except KeyboardInterrupt:
+
+            self.stop()
+
+    def stop(self) -> None:
+        """Stop watching the solutions directory."""
+
+        self._logger.info("Stopping file watcher...")
+
+        self._observer.stop()
+        self._observer.join()
