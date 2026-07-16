@@ -1,41 +1,55 @@
 # LeetCode Automation Engine
 
+![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
+![License](https://img.shields.io/github/license/bhola910/leetcode-automation)
+![Last Commit](https://img.shields.io/github/last-commit/bhola910/leetcode-automation)
+![Issues](https://img.shields.io/github/issues/bhola910/leetcode-automation)
+![Stars](https://img.shields.io/github/stars/bhola910/leetcode-automation?style=social)
+
 A Python project that automates the repetitive work involved in maintaining a LeetCode repository.
 
-Instead of manually updating your README, generating statistics, writing commit messages, and pushing changes to GitHub, this project handles those tasks automatically so you can focus on solving problems.
-
-The project follows a modular architecture, making it easy to maintain and extend with new features.
+Instead of manually updating your README, generating statistics, writing commit messages, and pushing changes to GitHub, this project automates those tasks so you can focus on solving coding problems. The project is built with a modular architecture that is easy to maintain, extend, and scale as new features are added.
 
 ---
 
-## Why I Built This
+# Why I Built This
 
-While solving LeetCode problems, I noticed that keeping my GitHub repository updated required the same manual steps every time. This project was created to automate those repetitive tasks and keep the repository organized with minimal effort.
+While solving LeetCode problems, I realized that keeping my GitHub repository updated involved repeating the same manual steps after every solution. I wanted a tool that could automatically organize my repository, generate statistics, update documentation, and handle Git operations.
 
-It also serves as a practical project to improve my Python skills and learn about automation, software design, and developer tooling.
+This project also serves as a practical way to strengthen my Python skills while learning software architecture, automation, developer tooling, and best engineering practices.
 
 ---
 
-## Features
+# Features
 
-- Automatically detect newly solved LeetCode problems
-- Update the repository README
+## Current Features
+
+- Detect newly solved LeetCode problems
+- Automatically update the project README
 - Generate solution statistics
-- Parse problem information
+- Parse LeetCode problem information
 - Detect repository changes
 - Automate Git operations (add, commit, push)
 - JSON-based configuration
 - Centralized logging
-- Modular and extensible architecture
-- Unit tests for core components
+- Modular architecture
+- Unit testing support
+- GitHub Actions (CI)
+- Issue Templates
+- Pull Request Template
+- CODEOWNERS support
 
 ---
 
-## Project Structure
+# Project Structure
 
 ```text
 leetcode-automation/
-│
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   ├── PULL_REQUEST_TEMPLATE/
+│   ├── workflows/
+│   └── CODEOWNERS
 ├── assets/
 ├── config/
 ├── docs/
@@ -46,21 +60,19 @@ leetcode-automation/
 │   ├── services/
 │   ├── utils/
 │   └── data/
-│
 ├── templates/
 ├── tests/
-│
-├── README.md
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── LICENSE
+├── README.md
 ├── requirements.txt
 └── .gitignore
 ```
 
 ---
 
-## Installation
+# Installation
 
 Clone the repository:
 
@@ -82,13 +94,13 @@ python -m venv .venv
 
 Activate the virtual environment.
 
-**Windows**
+### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-**Linux/macOS**
+### Linux / macOS
 
 ```bash
 source .venv/bin/activate
@@ -102,9 +114,9 @@ pip install -r requirements.txt
 
 ---
 
-## Usage
+# Usage
 
-Update the configuration file:
+Configure the project by editing:
 
 ```text
 config/config.json
@@ -118,26 +130,27 @@ python -m leetcode_automation
 
 ---
 
-## Configuration
+# Configuration
 
-The project uses a JSON configuration file located in:
+The application uses a JSON configuration file located at:
 
 ```text
 config/config.json
 ```
 
-You can configure options such as:
+Configuration options include:
 
 - Repository location
 - Git settings
 - Automation preferences
 - Statistics generation
+- Logging options
 
 ---
 
-## Running Tests
+# Running Tests
 
-Run all tests:
+Run the complete test suite:
 
 ```bash
 pytest
@@ -151,37 +164,55 @@ pytest tests/test_git_manager.py
 
 ---
 
-## Project Architecture
+# Project Architecture
 
-## Project Architecture
+The complete system architecture is documented in:
 
-The overall architecture is documented in:
+```text
+docs/architecture.md
+```
 
-> **docs/architecture.md**
+The document explains:
 
-This document explains the project components and how they interact.
+- Project layers
+- Module responsibilities
+- Data flow
+- Design decisions
+- Future scalability
 
 ---
 
-## Roadmap
+# Roadmap
 
-### v1.1.0 (Current)
+## v1.1.0 ✅ Repository Foundation
 
-- Improve project documentation
-- Repository cleanup
+Completed:
+
 - Professional README
-- Better project structure
-
-### v1.2.0
-
+- Project documentation
+- CHANGELOG
+- CONTRIBUTING guide
+- MIT License
 - GitHub Actions (CI)
-- Issue templates
-- Pull request template
-- Improved test coverage
+- Issue Templates
+- Pull Request Template
+- CODEOWNERS
+- Repository cleanup
+- Professional Git workflow
 
-### v2.0.0
+---
+
+## v2.0.0 🚧 Automation Engine
+
+Planned features:
 
 - Command Line Interface (CLI)
+- Configuration manager
+- File watcher
+- Git automation
+- Statistics engine
+- README generator
+- LeetCode parser
 
 Example commands:
 
@@ -192,45 +223,49 @@ lae stats
 lae commit
 ```
 
-### Future Plans
+---
+
+## Future Roadmap
 
 - Background automation service
-- VS Code extension
 - AI-assisted commit messages
+- VS Code extension
 - Analytics dashboard
+- Plugin support
+- Multi-platform installer
 
 ---
 
-## Contributing
+# Contributing
 
 Contributions are welcome.
 
-If you'd like to contribute:
+To contribute:
 
 1. Fork the repository.
 2. Create a feature branch.
-3. Make your changes.
-4. Add or update tests if needed.
+3. Commit your changes.
+4. Add or update tests where appropriate.
 5. Submit a Pull Request.
 
-Please read the `CONTRIBUTING.md` file before contributing.
+Please read **CONTRIBUTING.md** before contributing.
 
 ---
 
-## License
+# License
 
 This project is licensed under the MIT License.
 
-See the `LICENSE` file for more information.
+See the **LICENSE** file for complete details.
 
 ---
 
-## Author
+# Author
 
 **Bhola Kumar**
 
-B.Tech Computer Science student passionate about Python, automation, and developer tools.
+B.Tech Computer Science student passionate about Python, automation, developer tools, and building practical software projects.
 
 ---
 
-If you find this project useful, consider giving it a ⭐ on GitHub.
+If you find this project useful, consider giving it a ⭐ on GitHub. Your support helps the project grow and motivates future development.
