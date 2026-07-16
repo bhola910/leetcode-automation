@@ -1,8 +1,10 @@
 """
 config_manager.py
 
-Handles loading and accessing the application's configuration.
+Handles loading, validating, and accessing the application's configuration.
 """
+
+from __future__ import annotations
 
 import json
 from pathlib import Path
@@ -10,19 +12,19 @@ from typing import Any
 
 
 class ConfigManager:
-    """Loads and provides access to configuration settings."""
+    """Load and provide access to application configuration."""
+
+    DEFAULT_CONFIG_PATH = Path("config/config.json")
 
     def __init__(self, config_path: Path | None = None) -> None:
         """
         Initialize the configuration manager.
 
         Args:
-            config_path: Optional path to a configuration file.
-                         If not provided, the default config/config.json
-                         file is used.
+            config_path: Optional path to the configuration file.
+                         If omitted, the default configuration file is used.
         """
-
-        self._config_path = config_path or Path("config/config.json")
+        self._config_path = config_path or self.DEFAULT_CONFIG_PATH
         self._config: dict[str, Any] = {}
 
         self.load()
@@ -44,7 +46,7 @@ class ConfigManager:
             raise ValueError(f"Invalid JSON in configuration file: {error}") from error
 
     def validate(self) -> None:
-        """Validate required configuration sections."""
+        """Validate that all required configuration sections exist."""
 
         required_sections = (
             "project",
@@ -53,9 +55,15 @@ class ConfigManager:
             "logging",
         )
 
-        for section in required_sections:
-            if section not in self._config:
-                raise KeyError(f"Missing required configuration section: '{section}'")
+        missing_sections = [
+            section for section in required_sections if section not in self._config
+        ]
+
+        if missing_sections:
+            raise KeyError(
+                "Missing required configuration section(s): "
+                + ", ".join(missing_sections)
+            )
 
     def get(self, key: str) -> Any:
         """
