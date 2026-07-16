@@ -4,7 +4,6 @@ logger.py
 Provides logging functionality for the application.
 """
 
-
 import logging
 from pathlib import Path
 
